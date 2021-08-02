@@ -1,0 +1,20 @@
+{
+  "name": "SWifi",
+  "version": "1.0.0",
+  "description": "ESP32 Wifi client. AP mode, and multi client mode (one at a time, but can reconnect to the strongest, that you set). Also an interface to Ardiono OTA simple use. Also it is async, so not blocking main logic, while maintains connection.",
+  "keywords": "SWifi, wifi, multi ap, reconnect, async",
+  "authors":
+  {
+    "name":  "HTotoo",
+    "url":   "https://github.com/htotoo",
+    "maintainer": true
+  },
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/htotoo/SWifi.git"
+  },
+  "homepage": "https://github.com/htotoo/SWifi.git",
+  "frameworks": [ "arduino"],
+  "platforms": "esp32"
+}
