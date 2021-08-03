@@ -3,6 +3,7 @@
 
 std::vector<WifiAPlist_t> SWifi::APlist;
 unsigned long SWifi::lastCheck = 0;
+bool SWifi::otaEnabled = false;
 
 void SWifi::SetWifiMode(bool sta, bool ap)
 {
@@ -138,7 +139,7 @@ uint8_t SWifi::Connect()
 
 void SWifi::InitOTA(String password)
 {
-
+  SWifi::otaEnabled = true;
   if (password.length()>0) ArduinoOTA.setPassword(password.c_str());
   ArduinoOTA
   .onStart([]() {
@@ -159,6 +160,7 @@ void SWifi::InitOTA(String password)
 
 void SWifi::Loop()
 {
+  if (SWifi::otaEnabled) ArduinoOTA.handle();
   if (millis() - SWifi::lastCheck < 2000) return; //2mp
   SWifi::lastCheck = millis();
   uint8_t status = WiFi.status();

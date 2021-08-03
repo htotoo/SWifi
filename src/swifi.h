@@ -27,6 +27,7 @@ class SWifi
   private:
     static std::vector<WifiAPlist_t> APlist;
     static unsigned long lastCheck;
+    static bool otaEnabled;
 };
 
 

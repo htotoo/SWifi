@@ -38,4 +38,4 @@ void loop() {
 }
 ```
 
-Based on Markus Sattler's ESP8266WiFiMulti.h, and also used code from the ArdionoOTA. Thanks for theirs work!
+Based on Markus Sattler's ESP8266WiFiMulti.h, and also used code from the ArdionoOTA. Thanks for their work!
