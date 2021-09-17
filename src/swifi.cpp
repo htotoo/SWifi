@@ -61,6 +61,7 @@ uint8_t SWifi::Connect()
 {
   int8_t scanResult;
   uint8_t status = WiFi.status();
+  
   if (status == WL_CONNECTED) {
     for (uint32_t x = 0; x < APlist.size(); x++) {
       if (WiFi.SSID() == APlist[x].ssid) {
@@ -72,8 +73,9 @@ uint8_t SWifi::Connect()
     status = WiFi.status();
   }
   scanResult = WiFi.scanComplete();
-  if (scanResult == WIFI_SCAN_FAILED)
+  if (scanResult == WIFI_SCAN_FAILED || status == WL_NO_SSID_AVAIL)
   {
+    WiFi.scanDelete();
     scanResult = WiFi.scanNetworks(true);
     return WIFI_SCAN_RUNNING;
   }
@@ -168,11 +170,8 @@ void SWifi::Loop()
   {
     return; //nothing to do
   }
-  if (status == WL_CONNECT_FAILED  || status == WL_CONNECTION_LOST || status == WL_DISCONNECTED )
-  {
-    log_i("[SWIFI] Not connected, so check Connect");
-    SWifi::Connect();
-  }
+  log_i("[SWIFI] Not connected, so check Connect");
+  SWifi::Connect();
 }
 
 bool SWifi::IsConnected()
