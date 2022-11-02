@@ -24,10 +24,13 @@ class SWifi
     static bool IsConnected();
     static void Loop();
     static void InitOTA(String password = "");
+	static void SetWatchdogTimeout(uint8_t minutes);
   private:
     static std::vector<WifiAPlist_t> APlist;
     static unsigned long lastCheck;
+    static unsigned long lastConnOk;
     static bool otaEnabled;
+	static uint8_t wdTimeMin;
 };
 
 

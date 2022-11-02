@@ -16,7 +16,7 @@ void setup() {
 #ifdef ENABLEOTA
   SWifi::InitOTA(); //to enable OTA updates
 #endif
-
+  SWifi::SetWatchdogTimeout(5); //if not connected in the last 5 minutes, restart esp
 }
 
 

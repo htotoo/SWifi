@@ -3,6 +3,8 @@
 
 std::vector<WifiAPlist_t> SWifi::APlist;
 unsigned long SWifi::lastCheck = 0;
+unsigned long SWifi::lastConnOk = 0;
+uint8_t SWifi::wdTimeMin = 0;
 bool SWifi::otaEnabled = false;
 
 void SWifi::SetWifiMode(bool sta, bool ap)
@@ -160,14 +162,30 @@ void SWifi::InitOTA(String password)
   ArduinoOTA.begin();
 }
 
+void SWifi::SetWatchdogTimeout(uint8_t minutes)
+{
+	SWifi::wdTimeMin = minutes;
+}
+
 void SWifi::Loop()
 {
   if (SWifi::otaEnabled) ArduinoOTA.handle();
   if (millis() - SWifi::lastCheck < 2000) return; //2mp
   SWifi::lastCheck = millis();
+  if (SWifi::wdTimeMin >0)
+  {
+	if (SWifi::lastConnOk == 0) SWifi::lastConnOk = millis();
+	if ((millis() - SWifi::lastConnOk) > (1000*60*SWifi::wdTimeMin))
+	{
+		//todo callback
+		ESP.restart();
+		return;
+	}
+  }
   uint8_t status = WiFi.status();
   if (status == WL_CONNECTED)
   {
+	SWifi::lastConnOk = millis();
     return; //nothing to do
   }
   log_i("[SWIFI] Not connected, so check Connect");
