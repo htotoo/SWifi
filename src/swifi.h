@@ -4,7 +4,7 @@
 #include <stdint.h>
 #include <vector>
 #include <ArduinoOTA.h>
-#include <Wifi.h>
+#include <WiFi.h>
 
 
 typedef struct {

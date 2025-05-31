@@ -13,7 +13,7 @@ void SWifi::SetWifiMode(bool sta, bool ap)
   if (!sta && ap) WiFi.mode(WIFI_AP);
   if (sta && !ap) WiFi.mode(WIFI_STA);
   if (sta && ap) WiFi.mode(WIFI_AP_STA);
-  WiFi.setAutoConnect(false);
+  WiFi.setAutoReconnect(false);
 }
 
 void SWifi::SetAP(const char* ssid, const char* password, int channel, int ssid_hidden, int max_connection)
